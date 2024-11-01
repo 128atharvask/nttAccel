@@ -1,0 +1,177 @@
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Address_Generator.scala:79:39: overloaded method asUInt with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  (dummy: Int*)chisel3.UInt <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  chisel3.UInt[0m
+[0m[[0m[31merror[0m] [0m[0m cannot be applied to (chisel3.internal.firrtl.Width)[0m
+[0m[[0m[31merror[0m] [0m[0m  val (s, j, k) = if (state === (7.U).asUInt(3.W)) {[0m
+[0m[[0m[31merror[0m] [0m[0m                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Address_Generator.scala:84:39: overloaded method asUInt with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  (dummy: Int*)chisel3.UInt <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  chisel3.UInt[0m
+[0m[[0m[31merror[0m] [0m[0m cannot be applied to (chisel3.internal.firrtl.Width)[0m
+[0m[[0m[31merror[0m] [0m[0m    val k = (s & ((64.U >> i) - 1.U)).asUInt(7.W)[0m
+[0m[[0m[31merror[0m] [0m[0m                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Address_Generator.scala:88:55: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : chisel3.Bool[0m
+[0m[[0m[31merror[0m] [0m[0m required: Boolean[0m
+[0m[[0m[31merror[0m] [0m[0m  val (u7mi, u6mi, u7s1, u6s1, usi, u7ss) = if (state === 7.U) {[0m
+[0m[[0m[31merror[0m] [0m[0m                                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Address_Generator.scala:91:26: overloaded method asUInt with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  (dummy: Int*)chisel3.UInt <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  chisel3.UInt[0m
+[0m[[0m[31merror[0m] [0m[0m cannot be applied to (chisel3.internal.firrtl.Width)[0m
+[0m[[0m[31merror[0m] [0m[0m    val u7mi = (7.U - i).asUInt(7.W)[0m
+[0m[[0m[31merror[0m] [0m[0m                         ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Address_Generator.scala:92:26: overloaded method asUInt with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  (dummy: Int*)chisel3.UInt <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  chisel3.UInt[0m
+[0m[[0m[31merror[0m] [0m[0m cannot be applied to (chisel3.internal.firrtl.Width)[0m
+[0m[[0m[31merror[0m] [0m[0m    val u6mi = (6.U - i).asUInt(7.W)[0m
+[0m[[0m[31merror[0m] [0m[0m                         ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Address_Generator.scala:95:27: overloaded method asUInt with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  (dummy: Int*)chisel3.UInt <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  chisel3.UInt[0m
+[0m[[0m[31merror[0m] [0m[0m cannot be applied to (chisel3.internal.firrtl.Width)[0m
+[0m[[0m[31merror[0m] [0m[0m    val usi  = (1.U << i).asUInt(7.W)[0m
+[0m[[0m[31merror[0m] [0m[0m                          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Address_Generator.scala:100:29: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : chisel3.Bool[0m
+[0m[[0m[31merror[0m] [0m[0m required: Boolean[0m
+[0m[[0m[31merror[0m] [0m[0m  val addr1_var = if (state === 7.U) 0.U(7.W) else (j * u7s1 + k).resize(7)[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Address_Generator.scala:100:67: value resize is not a member of chisel3.UInt[0m
+[0m[[0m[31merror[0m] [0m[0m  val addr1_var = if (state === 7.U) 0.U(7.W) else (j * u7s1 + k).resize(7)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Address_Generator.scala:101:29: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : chisel3.Bool[0m
+[0m[[0m[31merror[0m] [0m[0m required: Boolean[0m
+[0m[[0m[31merror[0m] [0m[0m  val addr2_var = if (state === 7.U) 0.U(7.W) else (j * u7s1 + k + u6s1).resize(7)[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Address_Generator.scala:101:74: value resize is not a member of chisel3.UInt[0m
+[0m[[0m[31merror[0m] [0m[0m  val addr2_var = if (state === 7.U) 0.U(7.W) else (j * u7s1 + k + u6s1).resize(7)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                         ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Address_Generator.scala:102:29: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : chisel3.Bool[0m
+[0m[[0m[31merror[0m] [0m[0m required: Boolean[0m
+[0m[[0m[31merror[0m] [0m[0m  val addr3_var = if (state === 7.U) 0.U(7.W) else (usi + u7ss)[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/Inverse_Twiddle_ROM.scala:14:13: overloaded method apply with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  [T <: chisel3.Data](size: Int, t: T, ruw: chisel3.SyncReadMem.ReadUnderWrite): chisel3.SyncReadMem[T] <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  [T <: chisel3.Data](size: Int, t: T): chisel3.SyncReadMem[T] <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  [T <: chisel3.Data](size: BigInt, t: T, ruw: chisel3.SyncReadMem.ReadUnderWrite): chisel3.SyncReadMem[T] <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  [T <: chisel3.Data](size: BigInt, t: T): chisel3.SyncReadMem[T][0m
+[0m[[0m[31merror[0m] [0m[0m [which have no such parameter init] cannot be applied to (Int, chisel3.UInt, init: Seq[chisel3.UInt])[0m
+[0m[[0m[31merror[0m] [0m[0m  val rom = SyncReadMem(128, UInt(16.W), init = Seq([0m
+[0m[[0m[31merror[0m] [0m[0m            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:93:18: value writeValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeValid1 or writeValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.writeValid := true.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:94:18: value writeAddress is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeAddress1 or writeAddress2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.writeAddress := regs(4)[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:95:18: value writeData is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeData1 or writeData2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.writeData := regs(3)[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:98:18: value writeValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeValid1 or writeValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.writeValid := true.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:99:18: value writeAddress is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeAddress1 or writeAddress2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.writeAddress := addr_gen.io.addr1w[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:100:18: value writeData is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeData1 or writeData2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.writeData := bf_unit1.io.x[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:102:18: value writeValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeValid1 or writeValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.writeValid := false.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:107:18: value writeValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeValid1 or writeValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.writeValid := true.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:108:18: value writeAddress is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeAddress1 or writeAddress2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.writeAddress := regs(4)[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:109:18: value writeData is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeData1 or writeData2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.writeData := regs(3)[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:112:18: value writeValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeValid1 or writeValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.writeValid := true.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:113:18: value writeAddress is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeAddress1 or writeAddress2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.writeAddress := addr_gen.io.addr1w[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:114:18: value writeData is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeData1 or writeData2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.writeData := bf_unit2.io.x[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:116:18: value writeValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean writeValid1 or writeValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.writeValid := false.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:139:18: value readValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readValid1 or readValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.readValid := true.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:140:18: value readAddress is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readAddress1 or readAddress2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.readAddress := regs(4)[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:142:18: value readValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readValid1 or readValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.readValid := true.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:143:18: value readAddress is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readAddress1 or readAddress2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.readAddress := addr_gen.io.addr1[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:145:18: value readValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readValid1 or readValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram1.io.readValid := false.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:150:18: value readValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readValid1 or readValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.readValid := true.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:151:18: value readAddress is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readAddress1 or readAddress2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.readAddress := regs(4)[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:153:18: value readValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readValid1 or readValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.readValid := true.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:154:18: value readAddress is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readAddress1 or readAddress2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.readAddress := addr_gen.io.addr1[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:156:18: value readValid is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readValid1 or readValid2?[0m
+[0m[[0m[31merror[0m] [0m[0m    data_ram2.io.readValid := false.B[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:187:29: value readData is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readData1 or readData2?[0m
+[0m[[0m[31merror[0m] [0m[0m    regs(3) := data_ram1.io.readData[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:191:29: value readData is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readData1 or readData2?[0m
+[0m[[0m[31merror[0m] [0m[0m    regs(3) := data_ram2.io.readData[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:200:37: value readData is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readData1 or readData2?[0m
+[0m[[0m[31merror[0m] [0m[0m      bf_unit1.io.u := data_ram1.io.readData[0m
+[0m[[0m[31merror[0m] [0m[0m                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/src/main/scala/NTT.scala:201:37: value readData is not a member of chisel3.Bundle{val writeValid1: chisel3.Bool; val writeAddress1: chisel3.UInt; val writeData1: chisel3.UInt; val writeValid2: chisel3.Bool; val writeAddress2: chisel3.UInt; val writeData2: chisel3.UInt; val readValid1: chisel3.Bool; val readAddress1: chisel3.UInt; val readData1: chisel3.UInt; val readValid2: chisel3.Bool; val readAddress2: chisel3.UInt; val readData2: chisel3.UInt}[0m
+[0m[[0m[31merror[0m] [0m[0mdid you mean readData1 or readData2?[0m
+[0m[[0m[31merror[0m] [0m[0m      bf_unit2.io.u := data_ram2.io.readData[0m
+[0m[[0m[31merror[0m] [0m[0m                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m40 errors found[0m
