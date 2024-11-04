@@ -11,8 +11,14 @@ class NTT extends Module {
     val regReadAddr = Input(UInt(3.W)) // Address for reading from registers
     val regReadData = Output(UInt(32.W)) // Data output for register read
   })
-
-  // Create the registers
+    
+  //regs0 indicates start computation
+  //regs1 indicates finish computation
+  //regs2 indicates write mode or read mode
+  //regs3 stores data to be sent into BRAM or data that is read from BRAM
+  //regs4 stores write or read address for BRAM access
+  //regs5 indicates NTT or INTT
+  //regs6 indicates to access BRAM1 or BRAM2
   val regs = RegInit(VecInit(Seq.fill(7)(0.U(32.W))))
 
   // Write to the registers
@@ -28,12 +34,14 @@ class NTT extends Module {
   val bf_unit2 = Module(new UnifiedButterflyUnit())
   val tf_rom = Module(new TwiddleROM())
   val itf_rom = Module(new InverseTwiddleROM())
+  // TODO: RAM in chisel?
   val data_ram1 = Module(new DataRAM())
   val data_ram2 = Module(new DataRAM())
   val addr_gen = Module(new AddressGenerator())
 
   // Control signals
-  val start_bf = RegInit(false.B)
+  // TODO: BDataRAM??
+  val start_bf = RegInit(false.BDataRAM)
   val read_done1a = RegInit(false.B)
   val read_done1b = RegInit(false.B)
   val read_done2 = RegInit(false.B)
