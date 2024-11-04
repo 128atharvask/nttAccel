@@ -34,7 +34,6 @@ class NTT extends Module {
   val bf_unit2 = Module(new UnifiedButterflyUnit())
   val tf_rom = Module(new TwiddleROM())
   val itf_rom = Module(new InverseTwiddleROM())
-  // TODO: RAM in chisel?
   val data_ram1 = Module(new DataRAM())
   val data_ram2 = Module(new DataRAM())
   val addr_gen = Module(new AddressGenerator())

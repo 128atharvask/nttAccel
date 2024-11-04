@@ -11,7 +11,7 @@ class InverseTwiddleROM extends Module {
   })
 
   // ROM initialization with initial content
-  val rom = SyncReadMem(128, UInt(16.W), init = Seq(
+  val rom = VecInit(Seq(
     1.U, 1600.U, 40.U, 749.U, 2481.U, 1432.U, 2699.U, 687.U,
     1583.U, 2760.U, 69.U, 543.U, 2532.U, 3136.U, 1410.U, 2267.U,
     2508.U, 1355.U, 450.U, 936.U, 447.U, 2794.U, 1235.U, 1903.U,
@@ -31,7 +31,7 @@ class InverseTwiddleROM extends Module {
   ))
 
   // Read data from ROM
-  io.read_data := Mux(io.read_enable, rom.read(io.read_address), 0.U) // Default to 0 if not enabled
+  io.read_data := Mux(io.read_enable, rom(io.read_address), 0.U) // Default to 0 if not enabled
 }
 
 // object InverseTwiddleROMVerilog extends App {
