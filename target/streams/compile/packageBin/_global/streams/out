@@ -1,0 +1,35 @@
+[0m[[0m[0mdebug[0m] [0m[0mPackaging /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/ntt_accel_2.13-0.1.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/NTTMain$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/NTTMain$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/DataRAM.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/DataRAM.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/NTTMain.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/NTTMain.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/UnifiedButterflyUnit.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/UnifiedButterflyUnit.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/NTT$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/NTT$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/UnifiedButterflyUnit$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/UnifiedButterflyUnit$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/TwiddleROM.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/TwiddleROM.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/DataRAM$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/DataRAM$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/AddressGenerator$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/AddressGenerator$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/InverseTwiddleROM$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/InverseTwiddleROM$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/AddressGenerator.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/AddressGenerator.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/InverseTwiddleROM.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/InverseTwiddleROM.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/TwiddleROM$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/TwiddleROM$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/NTTMain$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/NTTMain$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	nttAccel/NTT.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/sriniketan/Desktop/BTP/chipyard/generators/ntt_accel/target/scala-2.13/classes/nttAccel/NTT.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m

@@ -76,30 +76,21 @@ class AddressGenerator extends Module {
 
   val i = Mux(io.select, state, (6.U - state))
   
-  val (s, j, k) = if (state === (7.U).asUInt(3.W)) {
-    (0.U(7.W), 0.U(7.W), 0.U(7.W))
-  } else {
-    val s = counter
-    val j = (s >> (6.U - i))
-    val k = (s & ((64.U >> i) - 1.U)).asUInt(7.W)
-    (s, j, k)
-  }
+  val s = Mux(state === 7.U, 0.U(7.W), counter)
+  val j = Mux(state === 7.U, 0.U(7.W), (s >> (6.U - i)))
+  val k = Mux(state === 7.U, 0.U(7.W), (s & ((64.U >> i) - 1.U)).asUInt)
 
-  val (u7mi, u6mi, u7s1, u6s1, usi, u7ss) = if (state === 7.U) {
-    (0.U(3.W), 0.U(3.W), 0.U(7.W), 0.U(7.W), 0.U(7.W), 0.U(7.W))
-  } else {
-    val u7mi = (7.U - i).asUInt(7.W)
-    val u6mi = (6.U - i).asUInt(7.W)
-    val u7s1 = (1.U << u7mi).asUInt(7.W)
-    val u6s1 = (1.U << u6mi).asUInt(7.W)
-    val usi  = (1.U << i).asUInt(7.W)
-    val u7ss = (s >> u6mi).asUInt(7.W)
-    (u7mi, u6mi, u7s1, u6s1, usi, u7ss)
-  }
 
-  val addr1_var = if (state === 7.U) 0.U(7.W) else (j * u7s1 + k).resize(7)
-  val addr2_var = if (state === 7.U) 0.U(7.W) else (j * u7s1 + k + u6s1).resize(7)
-  val addr3_var = if (state === 7.U) 0.U(7.W) else (usi + u7ss)
+  val u7mi = Mux(state === 7.U, 0.U(3.W), (7.U - i).asUInt)
+  val u6mi = Mux(state === 7.U, 0.U(3.W), (6.U - i).asUInt)
+  val u7s1 = Mux(state === 7.U, 0.U(7.W), (1.U << u7mi).asUInt)
+  val u6s1 = Mux(state === 7.U, 0.U(7.W), (1.U << u6mi).asUInt)
+  val usi  = Mux(state === 7.U, 0.U(7.W), (1.U << i).asUInt)
+  val u7ss = Mux(state === 7.U, 0.U(7.W), (s >> u6mi).asUInt)
+
+  val addr1_var = Mux(state === 7.U, 0.U(7.W), (j * u7s1 + k).asUInt)
+  val addr2_var = Mux(state === 7.U, 0.U(7.W), (j * u7s1 + k + u6s1).asUInt)
+  val addr3_var = Mux(state === 7.U, 0.U(7.W), (usi + u7ss))
 
   // Address delay chains
   when(delay || del_regs.orR) {

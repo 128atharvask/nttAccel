@@ -2,11 +2,12 @@ name := "NTT_Accel"
 
 version := "0.1"
 
-scalaVersion := "2.13.10" // Use the installed Scala version
+scalaVersion := "2.13.12" // Ensure Scala version matches
 
 libraryDependencies ++= Seq(
-  "edu.berkeley.cs" %% "chisel3" % "3.5.1"
+  "edu.berkeley.cs" %% "chisel3" % "3.5.5",  // Stable version of Chisel
+  "edu.berkeley.cs" %% "firrtl" % "1.5.5"    // Compatible FIRRTL version
 )
 
-
-fork in run := true // Ensure sbt can run the Verilog generation
+// Specify the latest compatible version of the chisel-plugin
+addCompilerPlugin("org.chipsalliance" %% "chisel-plugin" % "3.5.5")

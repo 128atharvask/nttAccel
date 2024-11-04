@@ -39,8 +39,7 @@ class NTT extends Module {
   val addr_gen = Module(new AddressGenerator())
 
   // Control signals
-  // TODO: BDataRAM??
-  val start_bf = RegInit(false.BDataRAM)
+  val start_bf = RegInit(false.B)
   val read_done1a = RegInit(false.B)
   val read_done1b = RegInit(false.B)
   val read_done2 = RegInit(false.B)
@@ -97,30 +96,34 @@ class NTT extends Module {
 
   // Data RAM1 Write
   when((regs(2) === 1.U) && (regs(6) === 1.U)) {
-    data_ram1.io.writeValid := true.B
-    data_ram1.io.writeAddress := regs(4)
-    data_ram1.io.writeData := regs(3)
+    data_ram1.io.writeValid1 := true.B
+    data_ram1.io.writeAddress1 := regs(4)
+    data_ram1.io.writeData1 := regs(3)
     regs(2) := 0.U
   }.elsewhen(bf_unit1.io.finish && (regs(1) === 0.U) && !addr_gen.io.inverse) {
-    data_ram1.io.writeValid := true.B
-    data_ram1.io.writeAddress := addr_gen.io.addr1w
-    data_ram1.io.writeData := bf_unit1.io.x
+    data_ram1.io.writeValid1 := true.B
+    data_ram1.io.writeAddress1 := addr_gen.io.addr1w
+    data_ram1.io.writeData1 := bf_unit1.io.x
   }.otherwise {
-    data_ram1.io.writeValid := false.B
+    data_ram1.io.writeValid1 := false.B
+    data_ram1.io.writeAddress1 := 0.U
+    data_ram1.io.writeData1 := 0.U
   }
 
   // Data RAM2 Write
   when((regs(2) === 1.U) && (regs(6) === 2.U)) {
-    data_ram2.io.writeValid := true.B
-    data_ram2.io.writeAddress := regs(4)
-    data_ram2.io.writeData := regs(3)
+    data_ram2.io.writeValid1 := true.B
+    data_ram2.io.writeAddress1 := regs(4)
+    data_ram2.io.writeData1 := regs(3)
     regs(2) := 0.U
   }.elsewhen(bf_unit2.io.finish && (regs(1) === 0.U) && !addr_gen.io.inverse) {
-    data_ram2.io.writeValid := true.B
-    data_ram2.io.writeAddress := addr_gen.io.addr1w
-    data_ram2.io.writeData := bf_unit2.io.x
+    data_ram2.io.writeValid1 := true.B
+    data_ram2.io.writeAddress1 := addr_gen.io.addr1w
+    data_ram2.io.writeData1 := bf_unit2.io.x
   }.otherwise {
-    data_ram2.io.writeValid := false.B
+    data_ram2.io.writeValid1 := false.B
+    data_ram2.io.writeAddress1 := 0.U
+    data_ram2.io.writeData1 := 0.U
   }
 
   // Data RAM1 Write (port 2)
@@ -130,6 +133,8 @@ class NTT extends Module {
     data_ram1.io.writeData2 := bf_unit1.io.y
   }.otherwise {
     data_ram1.io.writeValid2 := false.B
+    data_ram1.io.writeAddress2 := 0.U
+    data_ram1.io.writeData2 := 0.U
   }
 
   // Data RAM2 Write (port 2)
@@ -139,28 +144,32 @@ class NTT extends Module {
     data_ram2.io.writeData2 := bf_unit2.io.y
   }.otherwise {
     data_ram2.io.writeValid2 := false.B
+    data_ram2.io.writeAddress2 := 0.U
+    data_ram2.io.writeData2 := 0.U
   }
 
   // Data RAM1 Read
   when((regs(2) === 2.U) && (regs(1) === 1.U) && (regs(6) === 1.U)) {
-    data_ram1.io.readValid := true.B
-    data_ram1.io.readAddress := regs(4)
+    data_ram1.io.readValid1 := true.B
+    data_ram1.io.readAddress1 := regs(4)
   }.elsewhen(start_bf) {
-    data_ram1.io.readValid := true.B
-    data_ram1.io.readAddress := addr_gen.io.addr1
+    data_ram1.io.readValid1 := true.B
+    data_ram1.io.readAddress1 := addr_gen.io.addr1
   }.otherwise {
-    data_ram1.io.readValid := false.B
+    data_ram1.io.readValid1 := false.B
+    data_ram1.io.readAddress1 := 0.U
   }
 
   // Data RAM2 Read
   when((regs(2) === 2.U) && (regs(1) === 1.U) && (regs(6) === 2.U)) {
-    data_ram2.io.readValid := true.B
-    data_ram2.io.readAddress := regs(4)
+    data_ram2.io.readValid1 := true.B
+    data_ram2.io.readAddress1 := regs(4)
   }.elsewhen(start_bf) {
-    data_ram2.io.readValid := true.B
-    data_ram2.io.readAddress := addr_gen.io.addr1
+    data_ram2.io.readValid1 := true.B
+    data_ram2.io.readAddress1 := addr_gen.io.addr1
   }.otherwise {
-    data_ram2.io.readValid := false.B
+    data_ram2.io.readValid1 := false.B
+    data_ram2.io.readAddress1 := 0.U
   }
 
   // Update read_done flags based on read operations
@@ -185,17 +194,19 @@ class NTT extends Module {
     read_done2 := true.B
   }.otherwise {
     data_ram1.io.readValid2 := false.B
+    data_ram1.io.readAddress2 := 0.U
     data_ram2.io.readValid2 := false.B
+    data_ram2.io.readAddress2 := 0.U
     read_done2 := false.B
   }
 
   // Assign read data to regs(3) when done reading
   when(read_done1a && (regs(6) === 1.U)) {
-    regs(3) := data_ram1.io.readData
+    regs(3) := data_ram1.io.readData1
   }
 
   when(read_done1a && (regs(6) === 2.U)) {
-    regs(3) := data_ram2.io.readData
+    regs(3) := data_ram2.io.readData1
   }
 
   // Assign butterfly unit inputs based on read_done1b
@@ -204,8 +215,8 @@ class NTT extends Module {
       bf_unit1.io.u := 0.U
       bf_unit2.io.u := 0.U
     }.otherwise {
-      bf_unit1.io.u := data_ram1.io.readData
-      bf_unit2.io.u := data_ram2.io.readData
+      bf_unit1.io.u := data_ram1.io.readData1
+      bf_unit2.io.u := data_ram2.io.readData1
     }
   }.otherwise {
     bf_unit1.io.u := 0.U

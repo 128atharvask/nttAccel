@@ -1,4 +1,4 @@
-package projectname
+package nttAccel
 
 import chisel3._
 import chisel3.util._
@@ -85,27 +85,27 @@ class UnifiedButterflyUnit extends Module {
     str_del1 := str_del0
 
     // Cycle 3
-    ta := ((c1 * 5039.U) >> 24).asUInt()
+    ta := ((c1 * 5039.U) >> 24).asUInt
     c1_del1 := c1
     reg_del2 := reg_del1
     str_del2 := str_del1
 
     // Cycle 4
-    tb := ((ta << 11) + (ta << 10) + (ta << 8) + ta).asUInt()
+    tb := ((ta << 11) + (ta << 10) + (ta << 8) + ta).asUInt
     c1_del2 := c1_del1
     reg_del3 := reg_del2
     str_del3 := str_del2
 
     // Cycle 5
-    c2 := (c1_del2 - tb).asUInt()
+    c2 := (c1_del2 - tb).asUInt
     reg_del4 := reg_del3
     str_del4 := str_del3
 
     // Cycle 6
     when(c2 > 3329.U) {
-      c3 := (c2 - 3329.U).asUInt()
+      c3 := (c2 - 3329.U).asUInt
     }.otherwise {
-      c3 := c2.asUInt()
+      c3 := c2.asUInt
     }
     reg_del5 := reg_del4
     str_del5 := str_del4
@@ -116,15 +116,15 @@ class UnifiedButterflyUnit extends Module {
       x_reg := reg_del5
     }.otherwise {
       when(reg_del5 > c3) {
-        y_reg := (reg_del5 - c3).asUInt()
+        y_reg := (reg_del5 - c3).asUInt
       }.otherwise {
-        y_reg := (reg_del5 + 3329.U - c3).asUInt()
+        y_reg := (reg_del5 + 3329.U - c3).asUInt
       }
 
       when(reg_del5 + c3 > 3329.U) {
-        x_reg := (reg_del5 + c3 - 3329.U).asUInt()
+        x_reg := (reg_del5 + c3 - 3329.U).asUInt
       }.otherwise {
-        x_reg := (reg_del5 + c3).asUInt()
+        x_reg := (reg_del5 + c3).asUInt
       }
     }
     str_del6 := str_del5
