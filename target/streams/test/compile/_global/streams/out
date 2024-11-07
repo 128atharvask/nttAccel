@@ -1,0 +1,6 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/atharvakulkarni/Desktop/IITB/BTP/ntt_accel/src/test/scala/NTT_test.scala:57:33: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : chisel3.UInt[0m
+[0m[[0m[31merror[0m] [0m[0m required: Int, Long, Byte, Short, BigInt[0m
+[0m[[0m[31merror[0m] [0m[0m        println(f"Output Data: $output%x")[0m
+[0m[[0m[31merror[0m] [0m[0m                                ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

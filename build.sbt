@@ -1,13 +1,18 @@
-name := "NTT_Accel"
+name := "nttAccel"
 
-version := "0.1"
+scalaVersion := "2.13.14"
 
-scalaVersion := "2.13.12" // Ensure Scala version matches
-
-libraryDependencies ++= Seq(
-  "edu.berkeley.cs" %% "chisel3" % "3.5.5",  // Stable version of Chisel
-  "edu.berkeley.cs" %% "firrtl" % "1.5.5"    // Compatible FIRRTL version
+scalacOptions ++= Seq(
+  "-feature",
+  "-language:reflectiveCalls",
 )
 
-// Specify the latest compatible version of the chisel-plugin
-addCompilerPlugin("org.chipsalliance" %% "chisel-plugin" % "3.5.5")
+libraryDependencies ++= Seq(
+  "edu.berkeley.cs" %% "chisel3" % "3.6.0",
+  "edu.berkeley.cs" %% "chiseltest" % "0.6.0",
+  "edu.berkeley.cs" %% "firrtl" % "1.5.0"
+)
+
+addCompilerPlugin("edu.berkeley.cs" % "chisel3-plugin" % "3.6.1" cross CrossVersion.full)
+
+libraryDependencySchemes += "com.lihaoyi" %% "upickle" % VersionScheme.Always
