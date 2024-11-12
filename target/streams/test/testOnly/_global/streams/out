@@ -1,9 +1,9 @@
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(AddressGenTest, org.scalatest.tools.Framework$$anon$1@7ef23c04, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(AddressGenTest, org.scalatest.tools.Framework$$anon$1@5c359302, false, [SuiteSelector])[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mAddressGenTest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mAddressGenerator[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[31m- should generate addresses and handle enable and select *** FAILED ***[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  io_addr2=1 (0x1) did not equal expected=0 (0x0) (lines in AddressGenTest.scala: 17, 8) (AddressGenTest.scala:17)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 3 seconds, 262 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  io_finish=false (0, 0x0) did not equal expected=true (1, 0x1) (lines in AddressGenTest.scala: 48, 8) (AddressGenTest.scala:48)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 2 seconds, 614 milliseconds.[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 1[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 0, failed 1, canceled 0, ignored 0, pending 0[0m[0m

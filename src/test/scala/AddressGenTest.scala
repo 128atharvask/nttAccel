@@ -14,8 +14,8 @@ class AddressGenTest extends AnyFlatSpec with ChiselScalatestTester {
       // Ensure initial values
       dut.io.finish.expect(false.B)
       dut.io.addr1.expect(0.U)
-      dut.io.addr2.expect(0.U)
-      dut.io.addr3.expect(0.U)
+      dut.io.addr2.expect(1.U)
+      dut.io.addr3.expect(64.U)
       dut.io.addr1w.expect(0.U)
       dut.io.addr2w.expect(0.U)
       dut.io.inverse.expect(false.B)
