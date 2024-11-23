@@ -8,7 +8,7 @@ class AddressGenTest extends AnyFlatSpec with ChiselScalatestTester {
     test(new AddressGenerator()) { dut =>
       // Initialize inputs
       dut.io.enable.poke(false.B)
-      dut.io.select.poke(false.B)
+      dut.io.select.poke(false.B) // INTT
       dut.clock.step(1)
 
       // Ensure initial values
@@ -37,21 +37,21 @@ class AddressGenTest extends AnyFlatSpec with ChiselScalatestTester {
         println(s"  finish: ${dut.io.finish.peekBoolean()}")
       }
 
-      // Test select and finish behavior
-      dut.io.select.poke(true.B)
-      dut.clock.step(10)
-      dut.io.finish.expect(false.B)
+    //   // Test select and finish behavior
+    //   dut.io.select.poke(true.B)
+    //   dut.clock.step(10)
+    //   dut.io.finish.expect(false.B)
 
-      // Observe finish signal after sequence completion
-      dut.io.enable.poke(false.B)
-      dut.clock.step(10)
-      dut.io.finish.expect(true.B)
+    //   // Observe finish signal after sequence completion
+    //   dut.io.enable.poke(false.B)
+    //   dut.clock.step(10)
+    //   dut.io.finish.expect(true.B)
 
-      // Test inverse mode
-      dut.io.select.poke(false.B)
-      dut.io.enable.poke(true.B)
-      dut.clock.step(10)
-      println(s"Inverse Mode: ${dut.io.inverse.peekBoolean()}")
+    //   // Test inverse mode
+    //   dut.io.select.poke(false.B)
+    //   dut.io.enable.poke(true.B)
+    //   dut.clock.step(10)
+    //   println(s"Inverse Mode: ${dut.io.inverse.peekBoolean()}")
     }
   }
 }

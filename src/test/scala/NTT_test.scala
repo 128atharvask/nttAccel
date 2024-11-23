@@ -1,62 +1,126 @@
 import chisel3._
 import chiseltest._
 import org.scalatest.flatspec.AnyFlatSpec
-import nttAccel.NTT
+import nttAccel._
 
 class NTTTest extends AnyFlatSpec with ChiselScalatestTester {
-  "NTT" should "perform computations and handle data transfers" in {
-    test(new NTT()) { dut =>
-      // Initialize inputs
-      dut.io.regWrAddr.poke(0.U)
-      dut.io.regWrData.poke(0.U)
-      dut.io.regWriteEn.poke(false.B)
-      dut.io.regReadAddr.poke(0.U)
-      dut.io.regReadData.expect(0.U)
-      
-      // Reset sequence
+  "NTT" should "perform input and output operations as expected" in {
+    test(new NTT).withAnnotations(Seq(WriteVcdAnnotation)) { dut =>
+
+      // Initialize the clock
+      dut.clock.setTimeout(10000)
+
+      // Reset the module
       dut.reset.poke(true.B)
-      dut.clock.step(1)
+      dut.clock.step(2)
       dut.reset.poke(false.B)
-      dut.clock.step(4)
 
-      // Send initial data
+      // Set initial values
+      dut.io.input_valid.poke(false.B)
+      dut.io.output_ready.poke(false.B)
+
+      // Drive inputs (first pass)
+      println("Starting first pass of input sequence...")
       for (i <- 0 until 128) {
-        // Simulate S_AXIS_TDATA with incremented values
-        dut.io.regWrAddr.poke(3.U) // Write to reg3 (data register)
-        dut.io.regWrData.poke((2 * i).U)
-        dut.io.regWriteEn.poke(true.B)
+        dut.io.input_valid.poke(true.B)
+        dut.io.input_data.poke((2 * i).U)
         dut.clock.step(1)
-        dut.io.regWriteEn.poke(false.B)
+        
+        // Print input values
+        println(s"Cycle ${i}: Input Data = ${(2 * i)}, Input Valid = true")
+
+        dut.io.input_valid.poke(false.B)
         dut.clock.step(3)
       }
 
-      // Send additional data for next 128 values
+      dut.clock.step(2)
+
+      // Drive inputs, second pass with new data
+      println("Starting second pass of input sequence...")
       for (i <- 0 until 128) {
-        dut.io.regWrAddr.poke(3.U)
-        dut.io.regWrData.poke((2 * i + 1).U)
-        dut.io.regWriteEn.poke(true.B)
+        dut.io.input_valid.poke(true.B)
+        dut.io.input_data.poke((2 * i + 1).U)
         dut.clock.step(1)
-        dut.io.regWriteEn.poke(false.B)
+
+        // Print input values
+        println(s"Cycle ${i + 128}: Input Data = ${(2 * i + 1)}, Input Valid = true")
+
+        dut.io.input_valid.poke(false.B)
         dut.clock.step(3)
       }
 
-      // Set operation mode for NTT
-      dut.io.regWrAddr.poke(5.U) // Write to reg5 (operation mode)
-      dut.io.regWrData.poke(1.U) // Set mode to NTT
-      dut.io.regWriteEn.poke(true.B)
-      dut.clock.step(1)
-      dut.io.regWriteEn.poke(false.B)
+    // //   ---- RAM test ----
 
-      // Wait for computation to complete
+    //   dut.clock.step(2)
+
+    // //   printf(p"readValid1: ${dut.data_ram1.io.readValid1}\n")
+
+    //   // Reading back data from DataRAM1
+    //   println("Reading back DataRAM1...")
+    //   for (i <- 0 until 128) {
+    //     dut.io.input_valid.poke(false.B) // Ensure no new writes
+    //     dut.data_ram1.io.readValid1.poke(true.B)
+    //     dut.data_ram1.io.readAddress1.poke(i.U)
+    //     dut.clock.step(1)
+
+    //     val readData = dut.data_ram1.io.readData1.peek().litValue
+    //     println(s"Address: $i, DataRAM1 Data: $readData")
+    //   }
+
+    //   // Reading back data from DataRAM2
+    //   println("Reading back DataRAM2...")
+    //   for (i <- 0 until 128) {
+    //     dut.io.input_valid.poke(false.B) // Ensure no new writes
+    //     dut.data_ram2.io.readValid1.poke(true.B)
+    //     dut.data_ram2.io.readAddress1.poke(i.U)
+    //     dut.clock.step(1)
+
+    //     val readData = dut.data_ram2.io.readData1.peek().litValue
+    //     println(s"Address: $i, DataRAM2 Data: $readData")
+    //   }
+
+    // //   ---- RAM test ends ----
+
+      // Send a command to trigger NTT operation
+      dut.io.input_valid.poke(true.B)
+      dut.io.input_data.poke(1.U)   // Trigger command for NTT operation
+      dut.clock.step(2) // dev
+      println("Triggering NTT operation: Input Data = 1, Input Valid = true")
+      dut.io.input_valid.poke(false.B)
       dut.clock.step(600)
 
-      // Read outputs as per M_AXIS_TREADY behavior
-      for (_ <- 0 until 128) {
-        dut.io.regReadAddr.poke(3.U)
-        val output = dut.io.regReadData.peekInt()
-        println(f"Output Data: $output%x")
-        dut.clock.step(3)
+      // Check output behavior, replicating M_AXIS_TREADY logic
+      println("Starting output sequence...")
+      for (i <- 0 until 128) {
+        dut.io.output_ready.poke(true.B)
+        dut.clock.step(1)
+        
+        // Capture output values if valid
+        if (dut.io.output_valid.peek().litToBoolean) {
+          println(s"Cycle ${i + 256}: Output Data = ${dut.io.output_data.peek().litValue}, Output Valid = true")
+        }
+
+        dut.io.output_ready.poke(false.B)
+        dut.clock.step(2)
       }
+
+      dut.clock.step(10) // Add extra cycles
+
+      for (i <- 0 until 128) {
+        dut.io.output_ready.poke(true.B)
+        dut.clock.step(1)
+        
+        // Capture output values if valid
+        if (dut.io.output_valid.peek().litToBoolean) {
+          println(s"Cycle ${i + 384}: Output Data = ${dut.io.output_data.peek().litValue}, Output Valid = true")
+        }
+
+        dut.io.output_ready.poke(false.B)
+        dut.clock.step(2)
+      }
+
+      // Final steps and finish
+      dut.clock.step(10)
     }
   }
 }

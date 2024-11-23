@@ -6,13 +6,13 @@ import chisel3.util._
 class AddressGenerator extends Module {
   val io = IO(new Bundle {
     val enable  = Input(Bool())
-    val select  = Input(Bool())
+    val select  = Input(Bool())     // ?
     val addr1   = Output(UInt(7.W))
     val addr2   = Output(UInt(7.W))
     val addr3   = Output(UInt(7.W))
     val addr1w  = Output(UInt(7.W))
     val addr2w  = Output(UInt(7.W))
-    val inverse = Output(Bool())
+    val inverse = Output(Bool())    // used in gs_ntt
     val finish  = Output(Bool())
   })
 

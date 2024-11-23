@@ -5,16 +5,16 @@ import chisel3.util._
 
 class UnifiedButterflyUnit extends Module {
   val io = IO(new Bundle {
-    val start = Input(Bool())
-    val enable = Input(Bool())
-    val select = Input(Bool())
-    val inverse = Input(Bool())
-    val u = Input(UInt(16.W))
-    val v = Input(UInt(16.W))
-    val w = Input(UInt(16.W))
-    val x = Output(UInt(16.W))
-    val y = Output(UInt(16.W))
-    val finish = Output(Bool())
+    val start = Input(Bool())   // Input signal to start the butterfly computation
+    val enable = Input(Bool())  // Enables the butterfly unit; active when true
+    val select = Input(Bool())  // Selects between two operation modes for output computation
+    val inverse = Input(Bool()) // Determines whether to apply the inverse operation
+    val u = Input(UInt(16.W))   // First input operand for the butterfly computation
+    val v = Input(UInt(16.W))   // Second input operand for the butterfly computation
+    val w = Input(UInt(16.W))   // Twiddle factor input for multiplication in the butterfly computation
+    val x = Output(UInt(16.W))  // Output result representing one half of the butterfly computation
+    val y = Output(UInt(16.W))  // Output result representing the other half of the butterfly computation
+    val finish = Output(Bool()) // Output signal indicating computation completion
   })
 
   // Delay registers

@@ -3,6 +3,7 @@ package nttAccel
 import chisel3._
 import chisel3.util._
 
+// has inv_psis (precomputed inverse twiddle factors)
 class InverseTwiddleROM extends Module {
   val io = IO(new Bundle {
     val read_enable  = Input(Bool())
