@@ -12,28 +12,24 @@ class NTTTest extends AnyFlatSpec with ChiselScalatestTester {
 
       // Reset the module
       dut.reset.poke(true.B)
-      dut.clock.step(2)
+      dut.clock.step(1)
       dut.reset.poke(false.B)
 
       // Set initial values
-      dut.io.input_valid.poke(false.B)
+      dut.io.input_valid.poke(true.B)
       dut.io.output_ready.poke(false.B)
 
       // Drive inputs (first pass)
-      println("Starting first pass of input sequence...")
       for (i <- 0 until 128) {
         dut.io.input_valid.poke(true.B)
         dut.io.input_data.poke((2 * i).U)
         dut.clock.step(1)
         
         // Print input values
-        println(s"Cycle ${i}: Input Data = ${(2 * i)}, Input Valid = true")
+        // println(s"Cycle ${i}: Input Data = ${(2 * i)}, Input Valid = true")
 
         dut.io.input_valid.poke(false.B)
-        dut.clock.step(3)
       }
-
-      dut.clock.step(2)
 
       // Drive inputs, second pass with new data
       println("Starting second pass of input sequence...")
@@ -43,10 +39,9 @@ class NTTTest extends AnyFlatSpec with ChiselScalatestTester {
         dut.clock.step(1)
 
         // Print input values
-        println(s"Cycle ${i + 128}: Input Data = ${(2 * i + 1)}, Input Valid = true")
+        // println(s"Cycle ${i + 128}: Input Data = ${(2 * i + 1)}, Input Valid = true")
 
         dut.io.input_valid.poke(false.B)
-        dut.clock.step(3)
       }
 
     // //   ---- RAM test ----
@@ -97,7 +92,7 @@ class NTTTest extends AnyFlatSpec with ChiselScalatestTester {
         
         // Capture output values if valid
         if (dut.io.output_valid.peek().litToBoolean) {
-          println(s"Cycle ${i + 256}: Output Data = ${dut.io.output_data.peek().litValue}, Output Valid = true")
+          // println(s"Cycle ${i + 256}: Output Data = ${dut.io.output_data.peek().litValue}, Output Valid = true")
         }
 
         dut.io.output_ready.poke(false.B)
@@ -112,7 +107,7 @@ class NTTTest extends AnyFlatSpec with ChiselScalatestTester {
         
         // Capture output values if valid
         if (dut.io.output_valid.peek().litToBoolean) {
-          println(s"Cycle ${i + 384}: Output Data = ${dut.io.output_data.peek().litValue}, Output Valid = true")
+          // println(s"Cycle ${i + 384}: Output Data = ${dut.io.output_data.peek().litValue}, Output Valid = true")
         }
 
         dut.io.output_ready.poke(false.B)

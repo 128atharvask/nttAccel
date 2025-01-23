@@ -64,8 +64,8 @@ void butterfly_dit(uint32_t w, uint32_t u, uint32_t v, uint32_t *x, uint32_t *y)
     *x = (u + v1) % Q;
     if(u>=v1) *y = (u - v1) % Q;
     else *y = Q - (v1 - u) % Q;
-    // printf("w %d u %d v %d v1 %d\n", w,u,v,v1);
-    // printf("x %d y %d \n", *x, *y);
+    printf("w %d u %d v %d\n", w,u,v);
+    printf("x %d y %d \n", *x, *y);
 }
 
 // DIF (Decimation In Frequency) butterfly step
@@ -164,6 +164,7 @@ void ct_ntt(uint32_t *a, uint32_t *psis, uint32_t *y) {
             uint32_t U = y[ie];
             uint32_t V = y[io];
             uint32_t x0, x1;
+            printf("ie %d, io %d iw %d\n", ie, io, iw);
             butterfly_dit(S2, U, V, &x0, &x1);
             // printf("x0 %d x1 %d\n",x0,x1); //correct
             y[ie] = x0;
@@ -210,12 +211,14 @@ void ntt_256(const uint32_t* x, uint32_t* psis, uint32_t* y) {
             xo[i / 2] = x[i];
         }
     }
-    // print_debug_1d(xe,N,"xe");
+    print_debug_1d(xe,N,"xe");
     // print_debug_1d(xo,N,"xo");
 
     // Perform NTT on even and odd parts
     uint32_t ye[N], yo[N];
+    printf("NTT on xe\n");
     ct_ntt(xe, psis, ye);
+    printf("NTT on xo\n");
     ct_ntt(xo, psis, yo);
     // print_debug_1d(ye, N, "ye");
     // print_debug_1d(yo, N, "yo");

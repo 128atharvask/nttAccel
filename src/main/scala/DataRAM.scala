@@ -23,7 +23,7 @@ class DataRAM extends Module {
   })
 
   // Memory definition
-  val mem = SyncReadMem(128, UInt(16.W))
+  val mem = SyncReadMem(128, UInt(16.W))  // causing errors, delay data read by a cycle
 
   // Write operations
   when(io.writeValid1) {

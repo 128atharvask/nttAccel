@@ -1,3 +1,5 @@
+// i've tried to match most names to the .c code
+
 package nttAccel
 
 import chisel3._
@@ -6,12 +8,12 @@ import chisel3.util._
 class AddressGenerator extends Module {
   val io = IO(new Bundle {
     val enable  = Input(Bool())
-    val select  = Input(Bool())     // ?
-    val addr1   = Output(UInt(7.W))
-    val addr2   = Output(UInt(7.W))
-    val addr3   = Output(UInt(7.W))
-    val addr1w  = Output(UInt(7.W))
-    val addr2w  = Output(UInt(7.W))
+    val select  = Input(Bool())     // 0 for INTT, 1 for NTT
+    val addr1   = Output(UInt(7.W)) // for read_port1 of data_RAM_1&2
+    val addr2   = Output(UInt(7.W)) // for read_port2 of data_RAM_1&2
+    val addr3   = Output(UInt(7.W)) // for TF and ITF ROM
+    val addr1w  = Output(UInt(7.W)) // for write_port1 of data_RAM_1&2
+    val addr2w  = Output(UInt(7.W)) // for write_port2 of data_RAM_1&2
     val inverse = Output(Bool())    // used in gs_ntt
     val finish  = Output(Bool())
   })
@@ -24,6 +26,7 @@ class AddressGenerator extends Module {
   val addr1_del6 = RegInit(0.U(7.W))
   val addr1_del7 = RegInit(0.U(7.W))
   val addr1_del8 = RegInit(0.U(7.W))
+  val addr1_del9 = RegInit(0.U(7.W))
   
   val addr2_del1 = RegInit(0.U(7.W))
   val addr2_del2 = RegInit(0.U(7.W))
@@ -33,6 +36,9 @@ class AddressGenerator extends Module {
   val addr2_del6 = RegInit(0.U(7.W))
   val addr2_del7 = RegInit(0.U(7.W))
   val addr2_del8 = RegInit(0.U(7.W))
+  val addr2_del9 = RegInit(0.U(7.W))
+
+  // val addr3_del1 = RegInit(0.U(7.W))
 
   val fin_count = RegInit(0.U(4.W))
   val counter = RegInit(0.U(7.W))
@@ -47,6 +53,7 @@ class AddressGenerator extends Module {
   val del_reg5 = RegInit(false.B)
   val del_reg6 = RegInit(false.B)
   val del_reg7 = RegInit(false.B)
+  val del_reg8 = RegInit(false.B)
   
   val fin_sig = Wire(Bool())
   val delay = Wire(Bool())
@@ -66,9 +73,9 @@ class AddressGenerator extends Module {
     delay := true.B
     counter := counter + 1.U
 
-    when(counter === 63.U && state =/= 7.U) {
+    when(counter === 63.U && state =/= 7.U) {         // run until state becomes 7, and counter 0-63
       counter := 0.U
-      when(state === 6.U) {
+      when(state === 6.U) {                           // stop at state 6, we are done
         when(io.select) {
           fin_sig := true.B
           state := 0.U
@@ -117,8 +124,9 @@ class AddressGenerator extends Module {
   del_reg5 := del_reg4
   del_reg6 := del_reg5
   del_reg7 := del_reg6
+  del_reg8 := del_reg7
 
-  when(delay || del_reg1 || del_reg2 || del_reg3 || del_reg4 || del_reg5 || del_reg6 || del_reg7) {
+  when(delay || del_reg1 || del_reg2 || del_reg3 || del_reg4 || del_reg5 || del_reg6 || del_reg7 || del_reg8) {
     addr1_del1 := addr1_var
     addr1_del2 := addr1_del1
     addr1_del3 := addr1_del2
@@ -126,6 +134,8 @@ class AddressGenerator extends Module {
     addr1_del5 := addr1_del4
     addr1_del6 := addr1_del5
     addr1_del7 := addr1_del6
+    addr1_del8 := addr1_del7
+    addr1_del9 := addr1_del8
 
     addr2_del1 := addr2_var
     addr2_del2 := addr2_del1
@@ -134,9 +144,16 @@ class AddressGenerator extends Module {
     addr2_del5 := addr2_del4
     addr2_del6 := addr2_del5
     addr2_del7 := addr2_del6
+    addr2_del8 := addr2_del7
+    addr2_del9 := addr2_del8
+    
   }
 
-  // Fin count logic
+  // when(delay) {
+  //   addr3_del1 := addr3_var
+  // }
+
+  // wait for 9 cycles after fin_sig is asserted -- make it 8
   when(fin_sig || fin_count > 0.U) {
     fin_count := fin_count + 1.U
   }
@@ -144,11 +161,11 @@ class AddressGenerator extends Module {
   // Assign outputs
   io.addr1   := addr1_var
   io.addr2   := addr2_var
-  io.addr3   := addr3_var
-  io.addr1w  := addr1_del8
-  io.addr2w  := addr2_del8
-  io.finish  := (fin_count === 8.U)
-  io.inverse := (inverse || (io.select === false.B && (fin_count > 0.U && fin_count <= 8.U)))
+  io.addr3   := addr3_var // Mux(delay, addr3_del1, addr3_var) 
+  io.addr1w  := addr1_del9
+  io.addr2w  := addr2_del9
+  io.finish  := (fin_count === 9.U) // make it 8
+  io.inverse := (inverse || (io.select === false.B && (fin_count > 0.U && fin_count <= 9.U)))
 }
 
 // object AddressGeneratorVerilog extends App {
