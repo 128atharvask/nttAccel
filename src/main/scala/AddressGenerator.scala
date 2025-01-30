@@ -26,7 +26,6 @@ class AddressGenerator extends Module {
   val addr1_del6 = RegInit(0.U(7.W))
   val addr1_del7 = RegInit(0.U(7.W))
   val addr1_del8 = RegInit(0.U(7.W))
-  val addr1_del9 = RegInit(0.U(7.W))
   
   val addr2_del1 = RegInit(0.U(7.W))
   val addr2_del2 = RegInit(0.U(7.W))
@@ -36,7 +35,6 @@ class AddressGenerator extends Module {
   val addr2_del6 = RegInit(0.U(7.W))
   val addr2_del7 = RegInit(0.U(7.W))
   val addr2_del8 = RegInit(0.U(7.W))
-  val addr2_del9 = RegInit(0.U(7.W))
 
   // val addr3_del1 = RegInit(0.U(7.W))
 
@@ -53,7 +51,6 @@ class AddressGenerator extends Module {
   val del_reg5 = RegInit(false.B)
   val del_reg6 = RegInit(false.B)
   val del_reg7 = RegInit(false.B)
-  val del_reg8 = RegInit(false.B)
   
   val fin_sig = Wire(Bool())
   val delay = Wire(Bool())
@@ -124,9 +121,8 @@ class AddressGenerator extends Module {
   del_reg5 := del_reg4
   del_reg6 := del_reg5
   del_reg7 := del_reg6
-  del_reg8 := del_reg7
 
-  when(delay || del_reg1 || del_reg2 || del_reg3 || del_reg4 || del_reg5 || del_reg6 || del_reg7 || del_reg8) {
+  when(delay || del_reg1 || del_reg2 || del_reg3 || del_reg4 || del_reg5 || del_reg6 || del_reg7) {
     addr1_del1 := addr1_var
     addr1_del2 := addr1_del1
     addr1_del3 := addr1_del2
@@ -135,7 +131,6 @@ class AddressGenerator extends Module {
     addr1_del6 := addr1_del5
     addr1_del7 := addr1_del6
     addr1_del8 := addr1_del7
-    addr1_del9 := addr1_del8
 
     addr2_del1 := addr2_var
     addr2_del2 := addr2_del1
@@ -145,7 +140,6 @@ class AddressGenerator extends Module {
     addr2_del6 := addr2_del5
     addr2_del7 := addr2_del6
     addr2_del8 := addr2_del7
-    addr2_del9 := addr2_del8
     
   }
 
@@ -153,7 +147,7 @@ class AddressGenerator extends Module {
   //   addr3_del1 := addr3_var
   // }
 
-  // wait for 9 cycles after fin_sig is asserted -- make it 8
+  // wait for 8 cycles after fin_sig is asserted
   when(fin_sig || fin_count > 0.U) {
     fin_count := fin_count + 1.U
   }
@@ -162,9 +156,9 @@ class AddressGenerator extends Module {
   io.addr1   := addr1_var
   io.addr2   := addr2_var
   io.addr3   := addr3_var // Mux(delay, addr3_del1, addr3_var) 
-  io.addr1w  := addr1_del9
-  io.addr2w  := addr2_del9
-  io.finish  := (fin_count === 9.U) // make it 8
+  io.addr1w  := addr1_del8
+  io.addr2w  := addr2_del8
+  io.finish  := (fin_count === 8.U)
   io.inverse := (inverse || (io.select === false.B && (fin_count > 0.U && fin_count <= 9.U)))
 }
 

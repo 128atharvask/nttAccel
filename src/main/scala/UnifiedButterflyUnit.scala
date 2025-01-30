@@ -25,6 +25,7 @@ class UnifiedButterflyUnit extends Module {
   val str_del4 = RegInit(false.B)
   val str_del5 = RegInit(false.B)
   val str_del6 = RegInit(false.B)
+  // val str_del7 = RegInit(false.B)
 
   // Main registers
   val reg0 = RegInit(0.U(16.W))

@@ -11,7 +11,7 @@ void print_debug_1d(uint32_t *arr, int size, char* name) {
     printf("%s is 1D with shape: (%d)\n", name, size);
         printf("[");
     for (int i = 0; i < size; ++i) {
-        printf("%d", arr[i]);
+        printf("%d (%d)", arr[i], i);
         if (i != size - 1) {
             printf(", ");
         }
@@ -218,8 +218,10 @@ void ntt_256(const uint32_t* x, uint32_t* psis, uint32_t* y) {
     uint32_t ye[N], yo[N];
     printf("NTT on xe\n");
     ct_ntt(xe, psis, ye);
+    print_debug_1d(ye,N,"ye");
     printf("NTT on xo\n");
     ct_ntt(xo, psis, yo);
+    print_debug_1d(yo,N,"yo");
     // print_debug_1d(ye, N, "ye");
     // print_debug_1d(yo, N, "yo");
 
@@ -276,10 +278,12 @@ void key_gen(uint32_t scap[2][N2], uint32_t bcap[2][N2], uint32_t *psis, uint32_
     uint32_t ecap[2][N2];
     
     // Perform NTT on s and e
+    printf("NTT on s[0]\n");
+    print_debug_1d(s[0],N2,"s[0]");
     ntt_256(s[0], psis, scap[0]);
 
-    print_debug_1d(s[0],N2,"s0");
     print_debug_1d(scap[0],N2,"scap0");
+    return;
 
     ntt_256(s[1], psis, scap[1]);
 

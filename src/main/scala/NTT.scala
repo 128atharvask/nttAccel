@@ -25,6 +25,10 @@ class NTT extends Module {
   val addr_gen = Module(new AddressGenerator())
 
   val fillCounter = RegInit(0.U(8.W))
+  // val wait_wr_even = RegInit(true.B)
+  // val wait_wr_odd = RegInit(true.B)
+
+  // val fillCounterNext = RegInit(0.U(8.W))
   val sendCounter = RegInit(0.U(8.W))
   val lastReg = RegInit(false.B)  // required for FPGA
 
@@ -56,25 +60,44 @@ class NTT extends Module {
       lastReg := false.B
       state := stateB
       fillCounter := 0.U
+      // wait_wr_odd := true.B
+      // fillCounterNext := 0.U
     }
     
     // fill up dataRAM1
     is(stateB) {
-      when(fillCounter === 127.U) {
+      // when(isEntering(stateB)) {
+      //   wait_wr_even := true.B
+      // }
+      when(fillCounter === 127.U){
+      //  && wait_wr_even) {
+      //   wait_wr_even := false.B
+      // }.elsewhen(fillCounter === 127.U) {
         state := stateC
         fillCounter := 0.U
+        // fillCounterNext := 0.U
       }.otherwise {
+        // fillCounterNext := fillCounterNext + 1.U
         fillCounter := fillCounter + 1.U
       }
+      // fillCounter := fillCounterNext
     }
 
     // fill up dataRAM2
     is(stateC) {
-      when(fillCounter === 127.U) {
+      // when(isEntering(stateC)) {
+      //   wait_wr_odd := true.B
+      // }
+      when(fillCounter === 127.U){
+      //  && wait_wr_odd) {
+      //   wait_wr_odd := false.B
+      // }.elsewhen(fillCounter === 127.U) {
         state := stateD
       }.otherwise {
+        // fillCounterNext := fillCounterNext + 1.U
         fillCounter := fillCounter + 1.U
       }
+      // fillCounter := fillCounterNext
     }
 
     // NTT/INTT depending on input
@@ -109,7 +132,7 @@ class NTT extends Module {
       }
       .elsewhen(isActive(stateG) && io.output_ready && io.output_valid) {
         sendCounter := sendCounter + 1.U
-        when(sendCounter === 127.U) {
+        when(sendCounter === 128.U) {
           state := stateH
         }
       }
@@ -176,81 +199,81 @@ class NTT extends Module {
   // 1st write port for data_ram1
   // val write_valid_reg11 = RegInit(false.B)
   // data_ram1.io.writeValid1 := write_valid_reg11
-  val write_data11 = RegInit(0.U(16.W)) // bcz testbench writes on falling edge causing mismatch with address
-  data_ram1.io.writeData1 := write_data11
+  // val write_data11 = RegInit(0.U(16.W)) // bcz testbench writes on falling edge causing mismatch with address
+  // data_ram1.io.writeData1 := write_data11
   when(state === 1.U && io.input_valid)
   {
     data_ram1.io.writeValid1 := true.B
     data_ram1.io.writeAddress1 := fillCounter
-    write_data11 := io.input_data
+    data_ram1.io.writeData1 := io.input_data
   }
   .elsewhen(bf_unit1.io.finish && (state === 4.U || state === 5.U) && !addr_gen.io.inverse)
   {
     data_ram1.io.writeValid1 := true.B
     data_ram1.io.writeAddress1 := addr_gen.io.addr1w
-    write_data11 := bf_unit1.io.x
+    data_ram1.io.writeData1 := bf_unit1.io.x
   }
   .otherwise
   {
     data_ram1.io.writeValid1 := false.B
     data_ram1.io.writeAddress1 := 0.U
-    write_data11 := 0.U
+    data_ram1.io.writeData1 := 0.U
   }
 
   // 1st write port for data_ram2
   // val write_valid_reg21 = RegInit(false.B)
   // data_ram2.io.writeValid1 := write_valid_reg21
-  val write_data21 = RegInit(0.U(16.W))
-  data_ram2.io.writeData1 := write_data21
+  // val write_data21 = RegInit(0.U(16.W))
+  // data_ram2.io.writeData1 := write_data21
   when(state === 2.U && io.input_valid)
   {
     data_ram2.io.writeValid1 := true.B
     data_ram2.io.writeAddress1 := fillCounter
-    write_data21 := io.input_data
+    data_ram2.io.writeData1 := io.input_data
   } 
   .elsewhen(bf_unit2.io.finish && (state === 4.U || state === 5.U) && !addr_gen.io.inverse) 
   {
     data_ram2.io.writeValid1 := true.B
     data_ram2.io.writeAddress1 := addr_gen.io.addr1w
-    write_data21 := bf_unit2.io.x
+    data_ram2.io.writeData1 := bf_unit2.io.x
   } 
   .otherwise 
   {
     data_ram2.io.writeValid1 := false.B
     data_ram2.io.writeAddress1 := 0.U
-    write_data21 := 0.U
+    data_ram2.io.writeData1 := 0.U
   }
 
   // 2nd write port for data_ram1
-  val write_data12 = RegInit(0.U(16.W))
-  data_ram1.io.writeData2 := write_data12
+  // val write_data12 = RegInit(0.U(16.W))
+  // data_ram1.io.writeData2 := write_data12
   when(bf_unit1.io.finish && (state === 4.U || state === 5.U)) 
   {
     data_ram1.io.writeValid2 := true.B
     data_ram1.io.writeAddress2 := addr_gen.io.addr2w
-    write_data12 := bf_unit1.io.y
+    data_ram1.io.writeData2 := bf_unit1.io.y
   }
   .otherwise 
   {
     data_ram1.io.writeValid2 := false.B
     data_ram1.io.writeAddress2 := 0.U
-    write_data12 := 0.U
+    data_ram1.io.writeData2 := 0.U
   }
 
   // 2nd write port for data_ram2
-  val write_data22 = RegInit(0.U(16.W))
-  data_ram2.io.writeData2 := write_data22
+  // val write_data22 = RegInit(0.U(16.W))
+  // data_ram2.io.writeData2 := write_data22
   when(bf_unit2.io.finish && (state === 4.U || state === 5.U))
   {
     data_ram2.io.writeValid2 := true.B
     data_ram2.io.writeAddress2 := addr_gen.io.addr2w
-    write_data22 := bf_unit2.io.y
+    data_ram2.io.writeData2 := bf_unit2.io.y
   } 
   .otherwise 
   {
     data_ram2.io.writeValid2 := false.B
     data_ram2.io.writeAddress2 := 0.U
-    write_data22 := 0.U
+    data_ram2.io.writeData2 := 0.U
   }
 
   // 1st read port for data_ram1
@@ -286,7 +309,7 @@ class NTT extends Module {
   }
 
   // read_done flags
-  when(state === 6.U || (state === 7.U && sendCounter === 0.U)) 
+  when(state === 6.U || state === 7.U) 
   {
     read_done1a := true.B
     read_done1b := false.B
