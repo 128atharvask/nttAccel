@@ -8,7 +8,7 @@ class UnifiedButterflyUnit extends Module {
     val start = Input(Bool())   // Input signal to start the butterfly computation
     val enable = Input(Bool())  // Enables the butterfly unit; active when true
     val select = Input(Bool())  // 1 for NTT, 0 for INTT
-    val inverse = Input(Bool()) // 
+    val inverse = Input(Bool()) // since intt requires final normalization, we need to compute and store using Write2 interface of DataRAMs
     val u = Input(UInt(16.W))   // First input operand for the butterfly computation
     val v = Input(UInt(16.W))   // Second input operand for the butterfly computation
     val w = Input(UInt(16.W))   // Twiddle factor input for multiplication in the butterfly computation

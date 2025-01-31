@@ -196,6 +196,11 @@ class NTT extends Module {
   bf_unit2.io.start := read_done1b || read_done2
   bf_unit2.io.inverse := addr_gen.io.inverse
 
+  val delay_for_inverse = RegInit(0.U(3.W))
+  when(addr_gen.io.inverse && delay_for_inverse < 7.U) {
+    delay_for_inverse := delay_for_inverse + 1.U
+  }
+
   // 1st write port for data_ram1
   // val write_valid_reg11 = RegInit(false.B)
   // data_ram1.io.writeValid1 := write_valid_reg11
@@ -207,7 +212,7 @@ class NTT extends Module {
     data_ram1.io.writeAddress1 := fillCounter
     data_ram1.io.writeData1 := io.input_data
   }
-  .elsewhen(bf_unit1.io.finish && (state === 4.U || state === 5.U) && !addr_gen.io.inverse)
+  .elsewhen(bf_unit1.io.finish && (state === 4.U || state === 5.U) && (!addr_gen.io.inverse || delay_for_inverse < 7.U))
   {
     data_ram1.io.writeValid1 := true.B
     data_ram1.io.writeAddress1 := addr_gen.io.addr1w
@@ -231,7 +236,7 @@ class NTT extends Module {
     data_ram2.io.writeAddress1 := fillCounter
     data_ram2.io.writeData1 := io.input_data
   } 
-  .elsewhen(bf_unit2.io.finish && (state === 4.U || state === 5.U) && !addr_gen.io.inverse) 
+  .elsewhen(bf_unit2.io.finish && (state === 4.U || state === 5.U) && (!addr_gen.io.inverse || delay_for_inverse < 7.U) )
   {
     data_ram2.io.writeValid1 := true.B
     data_ram2.io.writeAddress1 := addr_gen.io.addr1w

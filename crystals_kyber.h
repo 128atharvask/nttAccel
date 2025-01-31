@@ -11,7 +11,7 @@ void print_debug_1d(uint32_t *arr, int size, char* name) {
     printf("%s is 1D with shape: (%d)\n", name, size);
         printf("[");
     for (int i = 0; i < size; ++i) {
-        printf("%d (%d)", arr[i], i);
+        printf("%d", arr[i]);
         if (i != size - 1) {
             printf(", ");
         }
@@ -64,8 +64,8 @@ void butterfly_dit(uint32_t w, uint32_t u, uint32_t v, uint32_t *x, uint32_t *y)
     *x = (u + v1) % Q;
     if(u>=v1) *y = (u - v1) % Q;
     else *y = Q - (v1 - u) % Q;
-    printf("w %d u %d v %d\n", w,u,v);
-    printf("x %d y %d \n", *x, *y);
+    // printf("w %d u %d v %d\n", w,u,v);
+    // printf("x %d y %d \n", *x, *y);
 }
 
 // DIF (Decimation In Frequency) butterfly step
@@ -75,6 +75,8 @@ void butterfly_dif(uint32_t w, uint32_t u, uint32_t v, uint32_t *x, uint32_t *y)
     if(u>=v) y1 = (u - v) % Q;
     else y1 = Q - (v - u) % Q;
     *y = barret_reduction(w * y1);
+    printf("w %d u %d v %d\n", w,u,v);
+    printf("x %d y %d \n", *x, *y);
 }
 
 // Generates forward and inverse twiddle factors in bit-reversed order
@@ -159,14 +161,13 @@ void ct_ntt(uint32_t *a, uint32_t *psis, uint32_t *y) {
         for (uint32_t s = 0; s < v; s++) {
             uint32_t ie, io, iw;
             addr_gen(s, i, l, v, &ie, &io, &iw);
-            // printf("ie %d io %d iw %d\n",ie,io,iw); //corect
+            // printf("ie %d io %d iw %d\n",ie,io,iw);
             uint32_t S2 = psis[iw];
             uint32_t U = y[ie];
             uint32_t V = y[io];
             uint32_t x0, x1;
-            printf("ie %d, io %d iw %d\n", ie, io, iw);
             butterfly_dit(S2, U, V, &x0, &x1);
-            // printf("x0 %d x1 %d\n",x0,x1); //correct
+            // printf("x0 %d x1 %d\n",x0,x1);
             y[ie] = x0;
             y[io] = x1;
             // printf("S %d U %d V %d\n", S2,U,V);
@@ -187,15 +188,18 @@ void gs_intt(uint32_t *a, uint32_t *inv_psis, uint32_t *y) {
             uint32_t i2 = l - i - 1;
             uint32_t ie, io, iw;
             addr_gen(s, i2, l, v, &ie, &io, &iw);
+            printf("ie %d io %d iw %d\n",ie,io,iw);
             uint32_t S = inv_psis[iw];
             uint32_t U = y[ie];
             uint32_t V = y[io];
             uint32_t x0, x1;
             butterfly_dif(S, U, V, &x0, &x1);
+            
             y[ie] = x0;
             y[io] = x1;
         }
     }
+    print_debug_1d(y,N,"y");
 
     for (uint32_t i = 0; i < N; i++) {
         y[i] = (y[i] * INV_N) % Q;
@@ -211,17 +215,17 @@ void ntt_256(const uint32_t* x, uint32_t* psis, uint32_t* y) {
             xo[i / 2] = x[i];
         }
     }
-    print_debug_1d(xe,N,"xe");
+    // print_debug_1d(xe,N,"xe");
     // print_debug_1d(xo,N,"xo");
 
     // Perform NTT on even and odd parts
     uint32_t ye[N], yo[N];
-    printf("NTT on xe\n");
+    // printf("NTT on xe\n");
     ct_ntt(xe, psis, ye);
-    print_debug_1d(ye,N,"ye");
-    printf("NTT on xo\n");
+    // print_debug_1d(ye,N,"ye");
+    // printf("NTT on xo\n");
     ct_ntt(xo, psis, yo);
-    print_debug_1d(yo,N,"yo");
+    // print_debug_1d(yo,N,"yo");
     // print_debug_1d(ye, N, "ye");
     // print_debug_1d(yo, N, "yo");
 
@@ -234,6 +238,7 @@ void ntt_256(const uint32_t* x, uint32_t* psis, uint32_t* y) {
 
 // 256-point INTT using two 128-point INTTs
 void intt_256(uint32_t* y, uint32_t* inv_psis, uint32_t* z) {
+    print_debug_1d(y,N2,"y");
     uint32_t ye[N]; // Array for the first half
     uint32_t yo[N]; // Array for the second half
 
@@ -244,16 +249,20 @@ void intt_256(uint32_t* y, uint32_t* inv_psis, uint32_t* z) {
 
     // Perform INTT on even and odd parts
     uint32_t ze[N], zo[N];
+    printf("INTT on ye\n");
+    print_debug_1d(ye,N,"ye");
     gs_intt(ye, inv_psis, ze);
+    print_debug_1d(ze,N,"ze");
+    printf("INTT on yo\n");
+    print_debug_1d(yo,N,"yo");
     gs_intt(yo, inv_psis, zo);
-    // print_debug_1d(ze,N,"ze");
-    // print_debug_1d(zo,N,"zo");
+    print_debug_1d(zo,N,"zo");
 
     for (uint32_t i = 0; i < N; i++) {
         z[2*i] = ze[i];
         z[2*i + 1] = zo[i];
     }
-    // print_debug_1d(z,N2,"z");
+    print_debug_1d(z,N2,"z");
 }
 
 void point_wise_mult(uint32_t *y1, uint32_t *y2, uint32_t *pwmf, uint32_t *result) {
@@ -278,12 +287,11 @@ void key_gen(uint32_t scap[2][N2], uint32_t bcap[2][N2], uint32_t *psis, uint32_
     uint32_t ecap[2][N2];
     
     // Perform NTT on s and e
-    printf("NTT on s[0]\n");
-    print_debug_1d(s[0],N2,"s[0]");
+    // printf("NTT on s[0]\n");
+    // print_debug_1d(s[0],N2,"s[0]");
     ntt_256(s[0], psis, scap[0]);
 
-    print_debug_1d(scap[0],N2,"scap0");
-    return;
+    // print_debug_1d(scap[0],N2,"scap0");
 
     ntt_256(s[1], psis, scap[1]);
 
@@ -359,8 +367,10 @@ void encrypt(uint32_t *m, uint32_t b[2][N2], uint32_t *psis, uint32_t *inv_psis,
         ucap[0][i] = (tcap[0][0][i] + tcap[0][1][i]) % Q;
         ucap[1][i] = (tcap[1][0][i] + tcap[1][1][i]) % Q;
     }
-
+    print_debug_1d(ucap[0],N2,"ucap0");
     intt_256(ucap[0], inv_psis, u[0]);
+    print_debug_1d(u[0],N2,"u[0]");
+    return;
     intt_256(ucap[1], inv_psis, u[1]);
 
     for(uint32_t i = 0; i < N2; i++){

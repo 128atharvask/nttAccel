@@ -14,7 +14,7 @@ class AddressGenerator extends Module {
     val addr3   = Output(UInt(7.W)) // for TF and ITF ROM
     val addr1w  = Output(UInt(7.W)) // for write_port1 of data_RAM_1&2
     val addr2w  = Output(UInt(7.W)) // for write_port2 of data_RAM_1&2
-    val inverse = Output(Bool())    // used in gs_ntt
+    val inverse = Output(Bool())    // since intt requires final normalization, we need to compute and store using Write2 interface of DataRAMs
     val finish  = Output(Bool())
   })
 
@@ -39,6 +39,7 @@ class AddressGenerator extends Module {
   // val addr3_del1 = RegInit(0.U(7.W))
 
   val fin_count = RegInit(0.U(4.W))
+  // val delay_for_inverse = RegInit(0.U(3.W))
   val counter = RegInit(0.U(7.W))
   val state   = RegInit(0.U(3.W))
   val inverse  = RegInit(false.B)
@@ -152,6 +153,10 @@ class AddressGenerator extends Module {
     fin_count := fin_count + 1.U
   }
 
+  // when(inverse && delay_for_inverse < 7.U) {
+  //   delay_for_inverse := delay_for_inverse + 1.U
+  // }
+
   // Assign outputs
   io.addr1   := addr1_var
   io.addr2   := addr2_var
@@ -159,7 +164,7 @@ class AddressGenerator extends Module {
   io.addr1w  := addr1_del8
   io.addr2w  := addr2_del8
   io.finish  := (fin_count === 8.U)
-  io.inverse := (inverse || (io.select === false.B && (fin_count > 0.U && fin_count <= 9.U)))
+  io.inverse := (inverse || (io.select === false.B && (fin_count > 0.U && fin_count <= 8.U)))
 }
 
 // object AddressGeneratorVerilog extends App {
