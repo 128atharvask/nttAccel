@@ -1,0 +1,7 @@
+[0m[[0m[31merror[0m] [0m[0m/home/hazem/chipyard/generators/nttAccel/src/test/scala/INTT_test_c.scala:8:14: not found: type NTT[0m
+[0m[[0m[31merror[0m] [0m[0m    test(new NTT).withAnnotations(Seq(WriteVcdAnnotation)) { dut =>[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/hazem/chipyard/generators/nttAccel/src/test/scala/NTT_test.scala:8:14: not found: type NTT[0m
+[0m[[0m[31merror[0m] [0m[0m    test(new NTT).withAnnotations(Seq(WriteVcdAnnotation)) { dut =>[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m

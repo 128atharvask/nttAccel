@@ -1,0 +1,26 @@
+[0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = /home/hazem/chipyard/generators/nttAccel/target/scala-2.13/classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTTAccel.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTT_ctrl_dp$State$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTT_ctrl_dp$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTT_ctrl_dp.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTTAccelImp$State$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTTAccelImp.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTTAccel.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTT_ctrl_dp$State$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTT_ctrl_dp$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTT_ctrl_dp.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTTAccelImp$State$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTTAccelImp.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	WithNTTAccel.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	WithNTTAccel$$anonfun$$lessinit$greater$1$$anonfun$apply$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTTAccel.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTT_ctrl_dp$State$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTT_ctrl_dp$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTT_ctrl_dp.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	WithNTTAccel$$anonfun$$lessinit$greater$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTTAccelImp$State$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NTTAccelImp.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: /home/hazem/chipyard/generators/nttAccel/target/scala-2.13/classes.bak[0m
