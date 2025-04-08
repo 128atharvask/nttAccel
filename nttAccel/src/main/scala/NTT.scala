@@ -67,11 +67,11 @@ class NTTAccelImp(outer: NTTAccel)(implicit p: Parameters) extends LazyRoCCModul
   val mem_addr = RegInit(0.U(32.W))
   val mem_cmd = RegInit(M_XRD)
   val mem_data = RegInit(0.U(64.W))
-  val req_rdy = RegInit(false.B)
+  val req_rdy = Wire(Bool())  // Changed to Wire since it's combinational
   
-  // // Response tracking
-  // val pendingReqs = RegInit(0.U(6.W))
-  // val maxInFlight = 32.U  // RoccMaxTaggedMemXacts
+  // Memory request/response tracking
+  val req_sent = RegInit(false.B)
+  val resp_received = RegInit(false.B)
 
   def connectHellaCache(req: DecoupledIO[HellaCacheReq]): Unit =  {
     req.valid := req_valid //&& (pendingReqs < maxInFlight)
@@ -141,46 +141,49 @@ class NTTAccelImp(outer: NTTAccel)(implicit p: Parameters) extends LazyRoCCModul
     }
     
     is(stateB) {
-      printf(p"Mem Req Addr: ${mem_addr}, Cmd: ${mem_cmd}, Tag: ${dataCounter}\n")
-      printf(p"Resp Valid: ${io.mem.resp.valid}, Resp Tag: ${mem_resp_tag}, Resp Data: ${mem_resp.data}\n")
       when(dataCounter < totalElements) {
-        when(req_rdy) {  // Only make request when cache is ready
+        when(!req_sent && req_rdy) {
           req_valid := true.B
-          mem_addr := rs1 + (dataCounter << 1.U)  // Each element is 2 bytes
+          mem_addr := rs1 + (dataCounter << 1.U)
           mem_cmd := M_XRD
+          req_sent := true.B
         }
-        when(io.mem.resp.valid && io.mem.resp.bits.tag === reqTag) {
+        
+        when(req_sent && io.mem.resp.valid && io.mem.resp.bits.tag === reqTag) {
           ntt_ctrl_dp.io.input_data := io.mem.resp.bits.data(15, 0)
           ntt_ctrl_dp.io.input_valid := true.B
           dataCounter := dataCounter + 1.U
           req_valid := false.B
+          req_sent := false.B
         }
       }.otherwise {
         state := stateC
         dataCounter := 0.U
         req_valid := false.B
+        req_sent := false.B
       }
     }
 
     is(stateC) {
-      printf(p"Mem Req Addr: ${mem_addr}, Cmd: ${mem_cmd}, Tag: ${dataCounter}\n")
-      printf(p"Resp Valid: ${io.mem.resp.valid}, Resp Tag: ${mem_resp_tag}, Resp Data: ${mem_resp.data}\n")
       when(dataCounter < totalElements) {
-        when(req_rdy) {  // Only make request when cache is ready
+        when(!req_sent && req_rdy) {
           req_valid := true.B
-          mem_addr := rs1 + (dataCounter << 1.U) + 2.U  // Odd elements
+          mem_addr := rs1 + (dataCounter << 1.U) + 2.U
           mem_cmd := M_XRD
+          req_sent := true.B
         }
-        when(io.mem.resp.valid && mem_resp_tag === dataCounter) {
-          ntt_ctrl_dp.io.input_data := mem_resp.data(15, 0)
+        
+        when(req_sent && io.mem.resp.valid && io.mem.resp.bits.tag === reqTag) {
+          ntt_ctrl_dp.io.input_data := io.mem.resp.bits.data(15, 0)
           ntt_ctrl_dp.io.input_valid := true.B
           dataCounter := dataCounter + 1.U
           req_valid := false.B
+          req_sent := false.B
         }
       }.otherwise {
         state := stateD
         req_valid := false.B
-        // Send the operation type (NTT/INTT) based on funct
+        req_sent := false.B
         ntt_ctrl_dp.io.input_data := Mux(funct === 1.U, 1.U, 0.U)
         ntt_ctrl_dp.io.input_valid := true.B
       }

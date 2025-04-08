@@ -54,8 +54,6 @@ class DummyImp(outer: DummyRoCC)(implicit p: Parameters) extends LazyRoCCModuleI
   // Buffer for the single element and request tracking
   val buffer = RegInit(0.U(16.W))
   val req_tag = RegInit(0.U(5.W))
-  // val pending_read = RegInit(false.B)
-  // val pending_write = RegInit(false.B)
 
   // Memory request tracking
   val req_valid = RegInit(false.B)
@@ -63,17 +61,6 @@ class DummyImp(outer: DummyRoCC)(implicit p: Parameters) extends LazyRoCCModuleI
   val mem_addr = RegInit(0.U(64.W))
   val mem_cmd = RegInit(M_XRD)
   val mem_data = RegInit(0.U(64.W))
-  // val mem_mask = RegInit(0.U(8.W))
-
-  // // Clear req_valid when request is accepted
-  // when(io.mem.req.fire) {
-  //   req_valid := false.B
-  //   when(mem_cmd === M_XRD) {
-  //     pending_read := true.B
-  //   }.otherwise {
-  //     pending_write := true.B
-  //   }
-  // }
 
   // Cache interface connection
   def connectHellaCache(req: DecoupledIO[HellaCacheReq]): Unit = {
@@ -88,21 +75,10 @@ class DummyImp(outer: DummyRoCC)(implicit p: Parameters) extends LazyRoCCModuleI
     req.bits.dprv := status.dprv
     req.bits.dv := status.dv
     req.bits.phys := false.B
-    // req.bits.no_alloc := false.B
-    // req.bits.no_xcpt := false.B
-    // req.bits.mask := mem_mask
   }
 
   // Connect to cache
   connectHellaCache(io.mem.req)
-
-  // // Handle read responses
-  // when(io.mem.resp.valid && pending_read && io.mem.resp.bits.tag === req_tag) {
-  //   val byte_offset = mem_addr(2, 0)
-  //   val shifted_data = io.mem.resp.bits.data >> (byte_offset << 3)
-  //   buffer := shifted_data(15, 0)
-  //   pending_read := false.B
-  // }
 
   val mem_resp_valid = io.mem.resp.valid
   val mem_resp_tag = io.mem.resp.bits.tag
@@ -123,7 +99,6 @@ class DummyImp(outer: DummyRoCC)(implicit p: Parameters) extends LazyRoCCModuleI
       req_valid := true.B
       mem_addr := rs1
       mem_cmd := M_XRD
-      // mem_mask := 0x3.U
       req_tag := 0.U
       when(req_rdy && req_valid) {
         state := waiting
@@ -146,9 +121,8 @@ class DummyImp(outer: DummyRoCC)(implicit p: Parameters) extends LazyRoCCModuleI
       req_valid := true.B
       mem_addr := rs2
       mem_cmd := M_XWR
-      // mem_mask := 0x3.U
       req_tag := 1.U
-      when(mem_resp_valid_reg && mem_resp_tag_reg === req_tag) {
+      when(mem_resp_valid && mem_resp_tag === req_tag) {
         req_valid := false.B
         state := done
       }
