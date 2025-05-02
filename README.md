@@ -14,4 +14,6 @@ sbt testonly NTTTest
 
 Replace `NTTTest` with the name of the test class you want to run (e.g., `DataRAMTest`, `AddressGenTest`, etc.).
 
+## Note
 
+To see the files for integration of NTT accelerator with RocketChip, checkout to `rocc` branch
