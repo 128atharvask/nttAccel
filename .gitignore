@@ -1,0 +1,13 @@
+.bloop/
+.metals/
+project/
+.vscode/
+tests/build/
+target/
+nttAccel/project/
+nttAccel/target/
+nttAccel/.bloop/
+nttAccel/.metals/
+nttAccel/tests/build/
+nttAccel/target/
+nttAccel
