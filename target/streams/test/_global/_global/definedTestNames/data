@@ -1,1 +1,1 @@
-["NTTTest","AddressGenTest"]
+["RAMWithCounterTest","AddressGenTest","NTTTest_C","INTTTest_C","nttAccel.DataRAMTest","NTTTest"]
